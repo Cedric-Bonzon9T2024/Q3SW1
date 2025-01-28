@@ -1,0 +1,144 @@
+<
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    #thermometer-image {
+      display: block;
+      margin: 0 auto 15px;
+      width: 30px; /* Smaller size for the image */
+      height: auto;
+    }
+    label, select, input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .refresh-button {
+      background-color: #f44336;
+      margin-top: 10px;
+    }
+    .refresh-button:hover {
+      background-color: #e53935;
+    }
+  </style>
+ </head>
+<body>
+
+  <div class="container">
+    <!-- Thermometer Image -->
+    <img id="thermometer-image" src="https://media.istockphoto.com/id/1184204481/vector/thermometer-vector-flat-design-stock-illustration.jpg?s=1024x1024&w=is&k=20&c=C14AM8ZCGIgxEmfWrEwHFzBjymfUm_NbelOLk2yzmoA=" alt="Thermometer">
+    
+    <h1>Temperature Converter</h1>
+    
+    <label for="tempValue">Enter Temperature:</label>
+    <input type="number" id="tempValue" placeholder="Enter value" required>
+    
+    <label for="conversionType">Select Conversion:</label>
+    <select id="conversionType">
+      <option value="CtoF">Celsius to Fahrenheit</option>
+      <option value="FtoC">Fahrenheit to Celsius</option>
+      <option value="CtoK">Celsius to Kelvin</option>
+      <option value="KtoC">Kelvin to Celsius</option>
+      <option value="FtoK">Fahrenheit to Kelvin</option>
+      <option value="KtoF">Kelvin to Fahrenheit</option>
+    </select>
+
+    <button onclick="convertTemperature()">Convert</button>
+
+    <div class="result" id="result"></div>
+    
+    <!-- Refresh Button -->
+    <button class="refresh-button" type="button" onClick="window.location.reload()">Refresh</button>
+  </div>
+
+  <script>
+    function convertTemperature() {
+      const tempValue = parseFloat(document.getElementById('tempValue').value);
+      const conversionType = document.getElementById('conversionType').value;
+      let result;
+
+      if (isNaN(tempValue)) {
+        document.getElementById('result').innerText = "Please enter a valid number!";
+        return;
+      }
+
+      switch (conversionType) {
+        case 'CtoF':
+          result = (tempValue * 9/5) + 32;
+          document.getElementById('result').innerText = `${tempValue}°C = ${result}°F`;
+          break;
+        case 'FtoC':
+          result = (tempValue - 32) * 5/9;
+          document.getElementById('result').innerText = `${tempValue}°F = ${result.toFixed(2)}°C`;
+          break;
+        case 'CtoK':
+          result = tempValue + 273.15;
+          document.getElementById('result').innerText = `${tempValue}°C = ${result}K`;
+          break;
+        case 'KtoC':
+          result = tempValue - 273.15;
+          document.getElementById('result').innerText = `${tempValue}K = ${result.toFixed(2)}°C`;
+          break;
+        case 'FtoK':
+          result = (tempValue - 32) * 5/9 + 273.15;
+          document.getElementById('result').innerText = `${tempValue}°F = ${result.toFixed(2)}K`;
+          break;
+        case 'KtoF':
+          result = (tempValue - 273.15) * 9/5 + 32;
+          document.getElementById('result').innerText = `${tempValue}K = ${result.toFixed(2)}°F`;
+          break;
+        default:
+          document.getElementById('result').innerText = "Invalid conversion type!";
+      }
+    }
+  </script>
+
+</body>
+</html>
